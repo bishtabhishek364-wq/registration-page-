@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create your account</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #17324d;
+    --ink-soft: #4a6076;
+    --paper: #f7f9fb;
+    --card: #ffffff;
+    --line: #d5dde5;
+    --accent: #1f7a6d;
+    --accent-dark: #165c52;
+    --sun: #f4b942;
+    --error: #b3261e;
+    --radius: 10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(280px, 5fr) 7fr;
+    font-family: "Figtree", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.5;
+  }
+
+  /* Left panel */
+  .intro {
+    background: var(--ink);
+    color: #fff;
+    padding: 64px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  .intro::after {
+    content: "";
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: var(--sun);
+    right: -140px;
+    bottom: -140px;
+  }
+  .intro h1 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: clamp(2rem, 3.2vw, 3rem);
+    line-height: 1.1;
+    margin: 0 0 16px;
+    max-width: 12ch;
+  }
+  .intro p {
+    margin: 0;
+    max-width: 34ch;
+    color: #c9d6e2;
+  }
+  .intro ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .intro li { padding: 6px 0 6px 28px; position: relative; }
+  .intro li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 13px;
+    width: 14px; height: 8px;
+    border-left: 2px solid var(--sun);
+    border-bottom: 2px solid var(--sun);
+    transform: rotate(-45deg);
+  }
+
+  /* Form side */
+  main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+  }
+  form {
+    width: 100%;
+    max-width: 560px;
+    background: var(--card);
+    padding: 40px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+  form h2 {
+    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-size: 1.6rem;
+    margin: 0 0 4px;
+  }
+  .sub { margin: 0 0 28px; color: var(--ink-soft); }
+  .sub a { color: var(--accent); font-weight: 600; }
+
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { margin-bottom: 18px; display: flex; flex-direction: column; }
+
+  label, legend {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    padding: 0;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="date"],
+  select {
+    font: inherit;
+    color: inherit;
+    padding: 11px 14px;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    transition: border-color .15s, box-shadow .15s;
+    width: 100%;
+  }
+  input::placeholder { color: #8da0b2; }
+  input:hover, select:hover { border-color: #9fb0c0; }
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(31, 122, 109, .2);
+  }
+  /* Show errors only after the person has typed something */
+  input:not(:placeholder-shown):invalid { border-color: var(--error); }
+  input:not(:placeholder-shown):valid { border-color: var(--accent); }
+
+  .hint { font-size: 0.82rem; color: var(--ink-soft); margin-top: 6px; }
+
+  fieldset { border: 0; padding: 0; margin: 0 0 18px; }
+  .choices { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  .choices label {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 500; margin: 0; cursor: pointer;
+  }
+  input[type="radio"], input[type="checkbox"] {
+    accent-color: var(--accent);
+    width: 18px; height: 18px;
+    margin: 0;
+  }
+
+  .terms {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 0.9rem; margin: 6px 0 24px;
+  }
+  .terms label { font-weight: 400; margin: 0; }
+  .terms a { color: var(--accent); }
+
+  button {
+    font: inherit;
+    font-weight: 600;
+    width: 100%;
+    padding: 13px;
+    color: #fff;
+    background: var(--accent);
+    border: 0;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  button:hover { background: var(--accent-dark); }
+  button:active { transform: translateY(1px); }
+  button:focus-visible {
+    outline: 3px solid var(--sun);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 860px) {
+    body { grid-template-columns: 1fr; }
+    .intro { padding: 36px 24px 56px; gap: 24px; }
+    .intro h1 { max-width: none; }
+    form { padding: 28px 22px; }
+  }
+  @media (max-width: 480px) {
+    .row { grid-template-columns: 1fr; gap: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <aside class="intro">
+    <div>
+      <h1>Join in under a minute</h1>
+      <p>Create an account to save your work and pick up where you left off on any device.</p>
+    </div>
+    <ul>
+      <li>Free to start</li>
+      <li>No credit card needed</li>
+      <li>Delete your account anytime</li>
+    </ul>
+  </aside>
+
+  <main>
+    <form action="#" method="post">
+      <h2>Create your account</h2>
+      <p class="sub">Already registered? <a href="#">Sign in</a></p>
+
+      <div class="row">
+        <div class="field">
+          <label for="first">First name</label>
+          <input type="text" id="first" name="first_name" placeholder="Asha" autocomplete="given-name" required>
+        </div>
+        <div class="field">
+          <label for="last">Last name</label>
+          <input type="text" id="last" name="last_name" placeholder="Rawat" autocomplete="family-name" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="asha@example.com" autocomplete="email" required>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="phone" placeholder="9876543210" pattern="[0-9+\-\s]{7,15}" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="dob">Date of birth</label>
+          <input type="date" id="dob" name="dob" required>
+        </div>
+      </div>
+
+      <fieldset>
+        <legend>Gender</legend>
+        <div class="choices">
+          <label><input type="radio" name="gender" value="female"> Female</label>
+          <label><input type="radio" name="gender" value="male"> Male</label>
+          <label><input type="radio" name="gender" value="other"> Other</label>
+          <label><input type="radio" name="gender" value="none"> Prefer not to say</label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="country">Country</label>
+        <select id="country" name="country" required>
+          <option value="" disabled selected>Select your country</option>
+          <option>India</option>
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>Canada</option>
+          <option>Australia</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Create a password"
+               minlength="8" autocomplete="new-password" required>
+        <span class="hint">At least 8 characters.</span>
+      </div>
+
+      <div class="terms">
+        <input type="checkbox" id="terms" name="terms" required>
+        <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+      </div>
+
+      <button type="submit">Create account</button>
+    </form>
+  </main>
+
+</body>
+</html>
